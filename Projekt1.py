@@ -145,7 +145,7 @@ print(f"There are {len(list_of_numbers)} numeric strings.")
 print(f"""The sum of all the numbers {total}
 {line}
 """)
-    #Vypsání výsledků
+#Vypsání výsledků
 print(
     f"LEN|", "OCCURENCES".center(24), "|NR."
 )
