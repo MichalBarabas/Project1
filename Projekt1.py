@@ -116,7 +116,6 @@ for number in list_of_numbers:
     total += int(number)
 
 #počet slov vůči délce slova 1-11 písmen
-    #proměné
 count_of_len_words = []
 dict_len_num = {}
 
