@@ -44,14 +44,6 @@ uzivatele = {
 
 line = 40 * "-"
 
-
-uzivatele = {
-    'bob': '123',
-    'ann': 'pass123',
-    'mike': 'password123',
-    'liz': 'pass123',
-}
-
 #Prihlaseni, uzivazele, heslo
 def login():
     username = input("Zadejte jméno: ")
@@ -66,14 +58,15 @@ We have {(len(TEXTS))} texts to be analyzed
     else:
         print("Neregistrovaný uzivatel, konec.")
         quit()
-
+        
 login()
 
 #Zvoleni textu 
 chosen_number = input(f"Enter a number btw. 1 and {(len(TEXTS))} to select:")
 print(line)
+
 #Vyber textu 
-if chosen_number.isdigit() and int(chosen_number) <= len(TEXTS):
+if chosen_number.isdigit() and int(chosen_number) <= len(TEXTS) and int(chosen_number) != 0:
     number_of_text = int(chosen_number) -1
 else:
     print("Neplatný vstup, ukončuji..")
@@ -86,28 +79,24 @@ for word in TEXTS[number_of_text].split():
     list_of_words.append(word.strip(",.:;"))
 while "" in list_of_words:
         list_of_words.remove("")
-
-#pocet slov zacínající s velkým písmenem
-list_of_capitals = []
-
-for word in list_of_words:
-    firts_letter = word[0].isupper()
-    if firts_letter is True:
-        list_of_capitals.append(word)
-
-#pocet slov malým písmenem
+   
+count_of_len_words = []
 list_of_lowers = []
-
-for word in list_of_words:
-    if word.islower() and word.isalpha():
-        list_of_lowers.append(word)
-
-#pocet císel zapsaných jako string
 list_of_numbers = []
+list_of_capitals = []
+list_of_uppers = []
 
 for word in list_of_words:
-    if word.isdigit():
-        list_of_numbers.append(word)
+    count_of_len_words.append(len(word))  #Počet slov
+    firts_letter = word[0].isupper()      #počet slov psaných velkými písmeny
+    if word.islower() and word.isalpha(): #počet slov psaných malými písmeny
+        list_of_lowers.append(word)
+    if word.isdigit():                    #počet čísel (ne cifer)
+        list_of_numbers.append(word)    
+    if firts_letter is True:              #počet slov psaných velkými písmeny
+        list_of_capitals.append(word)
+    if word.isupper():                    #Velkým písmem celý
+        list_of_uppers.append(word)
 
 #soucet císel v textu
 total = 0
@@ -116,14 +105,9 @@ for number in list_of_numbers:
     total += int(number)
 
 #počet slov vůči délce slova 1-11 písmen
-count_of_len_words = []
 dict_len_num = {}
 
-    #Vypsání délek textu do listu
-for word in list_of_words:
-    count_of_len_words.append(len(word))
-
-    #Spocítání délek z listu a zapsáno do slovníku
+#Spocítání délek z listu a zapsáno do slovníku
 for number in count_of_len_words:
     number_count = count_of_len_words.count(number)
     dict_len_num.update({number: number_count})
@@ -133,6 +117,9 @@ print(f"There are {len(list_of_words)} words in the selected text.")
 
 #počet slov psaných velkými písmeny
 print(f"There are {len(list_of_capitals)} titlecase words.")
+
+#Velkým písmem celý
+print(f"There are {len(list_of_uppers)} uppercase words.")
 
 #počet slov psaných malými písmeny
 print(f"There are {len(list_of_lowers)} lowercase words.")
@@ -144,6 +131,7 @@ print(f"There are {len(list_of_numbers)} numeric strings.")
 print(f"""The sum of all the numbers {total}
 {line}
 """)
+
 #Vypsání výsledků
 print(
     f"LEN|", "OCCURENCES".center(24), "|NR."
@@ -158,6 +146,3 @@ for i in list_len_num:
     print(f"{i:>3}|{'*' * hodnota:<26}|{hodnota}")
 
 print(line)
-
-
-
